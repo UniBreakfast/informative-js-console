@@ -91,9 +91,17 @@ const statementCategories = NamedArray.create('statement categories',
   ['with', { exampleLog: `` }],
 )
 
-const monoliterals = NamedArray.create('monoliterals',
-
-)
+const monoliterals = Object.assign(NamedArray.create('monoliterals',
+  ['number literal', {exampleLog: ``}],
+  ['string literal', {exampleLog: ``}],
+  ['bigint literal', {exampleLog: ``}],
+  ['regexp literal', {exampleLog: ``}],
+  ['empty array literal', {exampleLog: ``}],
+  ['empty object literal', {exampleLog: ``}],
+  ['boolean literal', {exampleLog: ``}],
+  ['null literal', {exampleLog: ``}],
+  ['undefined literal', {exampleLog: ``}],
+), {disclaimer: `Categorizing some of these as monoliterals is subjective and open to debate. For instance, an empty array literal or an empty object literal might be considered structured literals by some, even without elements or properties. Similarly, regular expression literals could also be seen as complex, as they are constructed from regex syntax tokens and flags, even though these are not parsed as JavaScript tokens. On the other hand, boolean literals, null literals, and undefined literals might be viewed as keywords or even identifiers rather than literals.`})
 
 const identifiers = NamedArray.create('identifiers',
 
@@ -124,15 +132,16 @@ const expressionCategories = NamedArray.create('expression categories',
   ['nested expressions', { exampleLog: `` }],
 )
 
+const constructor = cheat('constructor')
 const dataTypes = NamedArray.create('data types',
-  ['boolean', { [cheat('constructor')]: Boolean }],
-  ['number', { [cheat('constructor')]: Number }],
-  ['string', { [cheat('constructor')]: String }],
+  ['boolean', { [constructor]: Boolean }],
+  ['number', { [constructor]: Number }],
+  ['string', { [constructor]: String }],
   ['undefined', { value: undefined }],
   ['null', { value: null }],
-  ['bigint', { [cheat('constructor')]: BigInt }],
-  ['symbol', { [cheat('constructor')]: Symbol }],
-  ['object', { [cheat('constructor')]: Object }],
+  ['bigint', { [constructor]: BigInt }],
+  ['symbol', { [constructor]: Symbol }],
+  ['object', { [constructor]: Object }],
 )
 
 const bindingCategories = NamedArray.create('binding categories',
@@ -152,7 +161,7 @@ const interfaces = NamedArray.create('interfaces',
 )
 
 const codeSegments = NamedArray.create('code segments',
-  tokenCategories, statementCategories, expressionCategories
+  tokenCategories, expressionCategories, statementCategories
 )
 
 const thinkingLevels = NamedArray.create('thinking levels',
