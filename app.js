@@ -80,9 +80,43 @@ const tokenCategories = NamedArray.create('token categories',
   ['whitespace', { list: [] }],
 )
 
+const declarationStatements = NamedArray.create('declaration statements',
+  ['variable declaration', { exampleLog: `` }],
+  ['function declaration', { exampleLog: `` }],
+  ['class declaration', { exampleLog: `` }],
+  ['import declaration', { exampleLog: `` }],
+  ['export declaration', { exampleLog: `` }],
+)
+
+const conditionals = NamedArray.create('conditionals',
+  ['if else statement', { exampleLog: `` }],
+  ['switch statement', { exampleLog: `` }],
+)
+
+const loops = NamedArray.create('loops',
+  ['while loop', { exampleLog: `` }],
+  ['do while loop', { exampleLog: `` }],
+  ['classic for loop', { exampleLog: `` }],
+  ['for of loop', { exampleLog: `` }],
+  ['for in loop', { exampleLog: `` }],
+)
+
+const interruptions = NamedArray.create('interruptions',
+  ['continue statement', { exampleLog: `` }],
+  ['break statement', { exampleLog: `` }],
+  ['return statement', { exampleLog: `` }],
+  ['throw statement', { exampleLog: `` }],
+)
+
+const controlFlowStatements = NamedArray.create('control flow statements',
+  ['conditionals', { reference: conditionals }],
+  ['loops', { reference: loops }],
+  ['interruptions', { reference: interruptions }],
+)
+
 const statementCategories = NamedArray.create('statement categories',
-  ['declaration', { reference: 'declarationStatements' }],
-  ['control flow', { reference: 'controlFlowStatements' }],
+  ['declaration', { reference: declarationStatements }],
+  ['control flow', { reference: controlFlowStatements }],
   ['expression', { reference: 'expressionCategories' }],
   ['code block', { exampleLog: `` }],
   ['error handling', { exampleLog: `` }],
@@ -101,28 +135,58 @@ const monoliterals = Object.assign(NamedArray.create('monoliterals',
   ['boolean literal', {exampleLog: ``}],
   ['null literal', {exampleLog: ``}],
   ['undefined literal', {exampleLog: ``}],
-), {disclaimer: `Categorizing some of these as monoliterals is subjective and open to debate. For instance, an empty array literal or an empty object literal might be considered structured literals by some, even without elements or properties. Similarly, regular expression literals could also be seen as complex, as they are constructed from regex syntax tokens and flags, even though these are not parsed as JavaScript tokens. On the other hand, boolean literals, null literals, and undefined literals might be viewed as keywords or even identifiers rather than literals.`})
-
-const identifiers = NamedArray.create('identifiers',
-
-)
-
-const soloKeywords = NamedArray.create('solo keywords',
-
-)
+), {
+  disclaimer_1: `The term 'monoliteral' is not a standard term in JavaScript. It is used here to refer to literals that are parsed as a single token. It resembles the term 'monolithic' in that it refers to a single unit. However, it is important to note that this term is not widely recognized or used in the JavaScript community. Single token literals may also be referred to as 'atomic literals' or 'simple literals', or just 'literals'.`,
+  disclaimer_2: `Categorizing some of these as monoliterals is subjective and debateable. For instance, an empty array literal or an empty object literal might be considered structured literals by some, even without elements or properties. Similarly, regular expression literals could also be seen as complex, as they are constructed from regex syntax tokens and flags, even though these are not parsed as JavaScript tokens. On the other hand, boolean literals, null literals, and undefined literals might be viewed as keywords or even identifiers rather than literals.`
+})
 
 const structuredLiterals = NamedArray.create('structured literals',
-
+  ['template literal with interpolation', { exampleLog: `` }],
+  ['array literal with elements', { exampleLog: `` }],
+  ['object literal with properties', { exampleLog: `` }],
+  ['arrow function literal', { exampleLog: `` }],
+  ['classic function literal', { exampleLog: `` }],
+  ['class literal', { exampleLog: `` }],
 )
 
 const operatorExpressions = NamedArray.create('operator expressions',
+  ['arithmetic expressions', { exampleLog: `` }],
+  ['logical expressions', { exampleLog: `` }],
+  ['comparison expressions', { exampleLog: `` }],
+  ['member expressions', { exampleLog: `` }],
+  ['assignment expressions', { exampleLog: `` }],
+  ['call expressions', { exampleLog: `` }],
+  ['bitwise expressions', { exampleLog: `` }],
+  ['unary keyword expressions', { exampleLog: `` }],
+)
 
+const bindingCategories = NamedArray.create('binding categories',
+  ['constant', { exampleLog: `` }],
+  ['variable', { exampleLog: `` }],
+  ['function', { exampleLog: `` }],
+  ['parameter', { exampleLog: `` }],
+  ['property', { exampleLog: `` }],
+  ['method', { exampleLog: `` }],
+  ['class', { exampleLog: `` }],
 )
 
 const simpleExpressions = NamedArray.create('simple expressions',
   ['monoliteral', { reference: monoliterals }],
-  ['identifier', { reference: identifiers }],
-  ['solo keyword', { reference: soloKeywords }],
+  ['identifier', { 
+    exampleLog: ``,
+    disclaimer: `Identifiers in the context of simple expressions only refer to lexical bindings, which are available in some scope and evaluated as is to read the value bound to the identifier. This means that only five out of seven binding categories are considered: constants, variables, functions, parameters and classes. Member bindings like properties and methods are left out as those require an expression mentioning the object to which those members are bound for their identifier to read them.`,
+    relevantBindings: [
+      bindingCategories.constant,
+      bindingCategories.variable,
+      bindingCategories.function,
+      bindingCategories.parameter,
+      bindingCategories.class,
+    ],
+  }],
+  ['solo keyword', {
+    exampleLog: ``,
+    disclaimer: `NaN, Infinity, true, false, undefined and/or null debatably can also be put in this category by some if they are considered keywords`,
+  }],
 )
 
 const expressionCategories = NamedArray.create('expression categories',
@@ -131,6 +195,7 @@ const expressionCategories = NamedArray.create('expression categories',
   ['operator expressions', { reference: operatorExpressions }],
   ['nested expressions', { exampleLog: `` }],
 )
+statementCategories.expression.reference = expressionCategories
 
 const constructor = cheat('constructor')
 const dataTypes = NamedArray.create('data types',
@@ -142,16 +207,6 @@ const dataTypes = NamedArray.create('data types',
   ['bigint', { [constructor]: BigInt }],
   ['symbol', { [constructor]: Symbol }],
   ['object', { [constructor]: Object }],
-)
-
-const bindingCategories = NamedArray.create('binding categories',
-  ['constant', { exampleLog: `` }],
-  ['variable', { exampleLog: `` }],
-  ['function', { exampleLog: `` }],
-  ['parameter', { exampleLog: `` }],
-  ['property', { exampleLog: `` }],
-  ['method', { exampleLog: `` }],
-  ['class', { exampleLog: `` }],
 )
 
 const interfaces = NamedArray.create('interfaces',
