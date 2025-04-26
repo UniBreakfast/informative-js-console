@@ -220,11 +220,11 @@ const codeSegments = NamedArray.create('code segments',
 )
 
 const thinkingLevels = NamedArray.create('thinking levels',
-  ['filing', { reference: filingHolders }],
-  ['code', { references: codeSegments }],
-  ['data', { reference: dataTypes }],
-  ['binding', { reference: bindingCategories }],
-  ['interface', { reference: interfaces }],
+  ['filing level', { reference: filingHolders }],
+  ['code level', { references: codeSegments }],
+  ['data level', { reference: dataTypes }],
+  ['binding level', { reference: bindingCategories }],
+  ['interface level', { reference: interfaces }],
 )
 
 window.thinkingLevels = thinkingLevels
